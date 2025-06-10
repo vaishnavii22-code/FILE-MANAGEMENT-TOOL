@@ -2,83 +2,89 @@
 #include <fstream>
 #include <string>
 using namespace std;
-void read()
+class file
 {
-    //reading from file
-
-    //ifstream is input class
-    ifstream in;
-
-    in.open("data.txt",ios::in);
-    //ios::in is used to open file in input mode
-
-    if(!in.is_open())
+    public:
+    void read()
     {
-        //error in opening file
-        cout<<"File not opened correctly...try again";
-    }
-    else
-    {
-        string str;
-        while(!in.eof())
+        //reading from file
+
+        //ifstream is input class
+        ifstream in;
+
+        in.open("data.txt",ios::in);
+        //ios::in is used to open file in input mode
+
+        if(!in.is_open())
         {
-            //this part of code will run till end of file is reached
-            getline(in,str);
-            cout<<str<<endl;
-            cout<<endl<<"Data read from file successfully"<<endl;
+            //error in opening file
+            cout<<"File not opened correctly...try again";
         }
+        else
+        {
+            string str;
+            while(!in.eof())
+            {
+                //this part of code will run till end of file is reached
+                getline(in,str);
+                cout<<str<<endl;
+                cout<<endl<<"Data read from file successfully"<<endl;
+            }
+        }
+        in.close();
     }
-    in.close();
-}
-void write()
-{
-    //writing to file
-
-    //ofstream is output class 
-    ofstream out;
-
-    out.open("data.txt",ios::out);
-    //ios::out rewrites the file from the starting point
-
-    if(!out.is_open())
+    void write()
     {
-        cout<<"File not opened correctly...try again";
-    }
-    else
-    {
-        string inp;
-        cout<<"Enter the line you want in file: ";
-        cin.ignore();
-        getline(cin,inp);
-        out<<inp;
-        cout<<endl<<"Written to file successfully...."<<endl;
-    }
-    out.close();
-}
-void append()
-{
-    //appending to file i.e writing at the end 
+        //writing to file
 
-    ofstream out;
-    //ofstream is output class
+        //ofstream is output class 
+        ofstream out;
+
+        out.open("data.txt",ios::out);
+        //ios::out rewrites the file from the starting point
+
+        if(!out.is_open())
+        {
+            cout<<"File not opened correctly...try again";
+        }
+        else
+        {
+            string inp;
+            cout<<"Enter the line you want in file: ";
+            cin.ignore();
+            getline(cin,inp);
+            out<<inp;
+            cout<<endl<<"Written to file successfully...."<<endl;
+        }
+        out.close();
+    }
+    void append()
+    {
+        //appending to file i.e writing at the end 
+
+        ofstream out;
+        //ofstream is output class
     
-    out.open("data.txt",ios::app);
-    if(!out.is_open())
-    {
-        //error in opening file
-        cout<<"File not opened correctly....try again";
+        out.open("data.txt",ios::app);
+        if(!out.is_open())
+        {
+            //error in opening file
+            cout<<"File not opened correctly....try again";
+        }
+        else
+        {
+            string inp;
+            cout<<"Enter the line you want to append: ";
+            cin.ignore();
+            getline(cin,inp);
+            out<<" "<<inp<<" ";
+            cout<<endl<<"Appended to the file successfully"<<endl;
+        }
+        out.close();
     }
-    else
-    {
-        string inp;
-        cout<<"Enter the line you want to append: ";
-        cin.ignore();
-        getline(cin,inp);
-        out<<" "<<inp<<" ";
-        cout<<endl<<"Appended to the file successfully"<<endl;
-    }
-    out.close();
-}
+
+};
+
 
 int main()
 {
@@ -87,6 +93,10 @@ int main()
 
     //choice is switch case variable
     int choice=0;
+
+    //object of class file
+    file f;
+
     do
     {
         cout<<endl<<"1.Write"<<endl;
@@ -98,13 +108,13 @@ int main()
         switch(choice)
         {
             case 1:
-                write();
+                f.write();
                 break;
             case 2:
-                append();
+                f.append();
                 break;
             case 3:
-                read();
+                f.read();
                 break;
             case 4:
                 cout<<"Exiting.......";
